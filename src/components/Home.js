@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const buttonVariants = {
    hover: {
@@ -17,6 +17,9 @@ const buttonVariants = {
 };
 
 const Home = () => {
+   const [showTitle, setShowTitle] = useState(true);
+   setTimeout(() => setShowTitle(false), 4000);
+
    return (
       <motion.div
          className="home container"
@@ -24,7 +27,9 @@ const Home = () => {
          animate={{ opacity: 1 }}
          transition={{ delay: 0.75, type: 'tween', duration: 1.5 }}
       >
-         <h2>Welcome to Pizza Joint</h2>
+         <AnimatePresence>
+            {showTitle && <motion.h2 exit={{ opacity: 0 }}>Welcome to Pizza Joint</motion.h2>}
+         </AnimatePresence>
          <Link to="/base">
             <motion.button variants={buttonVariants} whileHover="hover">
                Create Your Pizza
